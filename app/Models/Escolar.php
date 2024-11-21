@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Escolar extends Model
 {
-    protected $table = 'aspecto_social';
+    use HasFactory;
+    protected $table = 'escolar';
     protected $primaryKey = 'id_estudiante';
     
 

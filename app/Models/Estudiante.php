@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Estudiante extends Model
 {
+    use HasFactory;
     protected $table = 'estudiantes';
     protected $primaryKey = 'id_numero_control';
     public $timestamps = true;
@@ -49,7 +50,7 @@ class Estudiante extends Model
 
     public function requerimientos()
     {
-        return $this->hasMany(Requeremientos::class, 'id_estudiante', 'id_numero_control');
+        return $this->hasOne(Requeremientos::class, 'id_estudiante', 'id_numero_control');
     }
 
     public function aceptado()
