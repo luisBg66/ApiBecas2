@@ -14,7 +14,7 @@ class EscolarFactory extends Factory
     public function definition(): array
     {
         return [
-            'id_estudiante' => Estudiante::factory(), // Relación con `Estudiantes`
+            'id_estudiante' => Estudiante::all()->random()->id, // Relación con `Estudiantes`
             'promedio' => $this->faker->randomFloat(2, 5.0, 10.0), // Valores entre 5.0 y 10.0
             'materia_en_repeticion' => $this->faker->boolean,
         ];

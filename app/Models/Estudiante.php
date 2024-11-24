@@ -8,14 +8,14 @@ class Estudiante extends Model
 {
     use HasFactory;
     protected $table = 'estudiantes';
-    protected $primaryKey = 'id_numero_control';
+    
     public $timestamps = true;
 
-    public $incrementing = false;
-    protected $keyType = 'string';
+ 
 
     protected $fillable = [
-        'id_numero_control',
+        'id',
+       'numero_control',
         'nombre',
         'apellido_paterno',
         'apellido_materno',
@@ -25,7 +25,7 @@ class Estudiante extends Model
 
     public function carrera()
     {
-        return $this->belongsTo(Carrera::class, 'id_carrera', 'id_carrera');
+        return $this->belongsTo(Carrera::class, 'id_carrera', 'id');
     }
 
     public function direccion()

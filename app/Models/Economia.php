@@ -8,7 +8,7 @@ class Economia extends Model
 {
     use HasFactory;
     protected $table = 'economia';
-    protected $primaryKey = 'id_estudiante';
+   protected $primaryKey = 'id';
     
 
     public $incrementing = false;

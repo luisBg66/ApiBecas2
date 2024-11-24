@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('escolar', function (Blueprint $table) {
-            $table->string('id_estudiante')->primary();
+            $table->id();
+            $table->unsignedBigInteger('id_estudiante');
             $table->decimal('promedio', 5, 2);
             $table->boolean('materia_en_repeticion')->default(false);
-            $table->foreign('id_estudiante')->references('id_numero_control')->on('estudiantes')->onDelete('cascade');
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes')->onDelete('cascade');
             $table->timestamps();
         });
     }

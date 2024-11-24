@@ -12,9 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('social', function (Blueprint $table) {
-            $table->string('id_estudiante')->primary();
+            $table->id();
+            $table->unsignedBigInteger('id_estudiante');
             $table->integer('integrantes_familia')->nullable();
-            $table->foreign('id_estudiante')->references('id_numero_control')->on('estudiantes')->onDelete('cascade');
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes')->onDelete('cascade');
             $table->timestamps();
         });
     }

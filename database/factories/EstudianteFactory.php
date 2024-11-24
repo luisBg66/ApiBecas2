@@ -15,11 +15,12 @@ class EstudianteFactory extends Factory
     public function definition()
     {
         return [
-            'id_numero_control' => $this->faker->unique()->regexify('[A-Z0-9]{10}'), // ID único
+            
+            'numero_control' => $this->faker->unique()->regexify('[A-Z0-9]{10}'), // ID único
             'nombre' => $this->faker->firstName,
             'apellido_paterno' => $this->faker->lastName,
             'apellido_materno' => $this->faker->lastName,
-            'id_carrera' => Carrera::factory(), // Relación con `Carreras`
+            'id_carrera' => Carrera::all()->random()->id, // Relación con `Carreras`
             'correo' => $this->faker->unique()->safeEmail,
         ];
     }

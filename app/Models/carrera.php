@@ -8,7 +8,7 @@ class Carrera extends Model
 {
     use HasFactory;
     protected $table = 'carreras';
-    protected $primaryKey = 'id_carrera';
+
     public $timestamps = true;
 
     protected $fillable = [
@@ -17,6 +17,6 @@ class Carrera extends Model
 
     public function estudiantes()
     {
-        return $this->hasMany(Estudiante::class, 'id_carrera', 'id_carrera');
+        return $this->hasMany(Estudiante::class, 'id_carrera', 'id');
     }
 }

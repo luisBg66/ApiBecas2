@@ -8,7 +8,7 @@ class Social extends Model
 {
     use HasFactory;
     protected $table = 'social';
-    protected $primaryKey = 'id_estudiante';
+    protected $primaryKey = 'id';
     public $timestamps = true;
 
     public $incrementing = false;

@@ -12,7 +12,7 @@ class Requeremientos extends Model
     public $timestamps = true;
 
     protected $fillable = [
-        'id_estudiante',
+       'id_estudiante',
         'nombre_requerimiento',
         'materia_en_repeticion', 
         'promedio',             

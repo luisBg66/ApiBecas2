@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('direcciones', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('id_estudiante');
+            $table->id();
+            $table->unsignedBigInteger('id_estudiante');
             $table->string('municipio')->nullable();
             $table->string('colonia')->nullable();
             $table->string('calle')->nullable();
             $table->integer('numero')->nullable();
-            $table->foreign('id_estudiante')->references('id_numero_control')->on('estudiantes')->onDelete('cascade');
+            $table->foreign('id_estudiante')->references('id')->on('estudiantes')->onDelete('cascade');
             $table->timestamps();
         });
     }

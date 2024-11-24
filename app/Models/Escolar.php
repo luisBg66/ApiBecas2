@@ -8,14 +8,15 @@ class Escolar extends Model
 {
     use HasFactory;
     protected $table = 'escolar';
-    protected $primaryKey = 'id_estudiante';
+    protected $primaryKey = 'id';
     
 
     public $incrementing = false;
 
     protected $fillable = [
         'id_estudiante',
-        'integrantes_familia',
+        'promedio',
+        'materia_en_repeticion',
     ];
 
     public function estudiante()

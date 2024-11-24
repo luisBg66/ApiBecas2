@@ -14,7 +14,7 @@ class SocialFactory extends Factory
     public function definition()
     {
         return [
-            'id_estudiante' => Estudiante::factory(), // Relación con `Estudiantes`
+            'id_estudiante' => Estudiante::all()->random()->id, // Relación con `Estudiantes`
             'integrantes_familia' => $this->faker->numberBetween(1, 10),
         ];
     }
