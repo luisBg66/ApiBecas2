@@ -9,7 +9,7 @@ class StoreEscolarRequest extends FormRequest
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -19,11 +19,12 @@ class StoreEscolarRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'promedio' => 'sometimes|required|numeric|between:0,100',
-            'materias_reprobadas' => 'sometimes|required|integer|min:0',
+        'id_estudiante' => 'required|exists:estudiantes,id',
+        'promedio' => 'required|numeric|between:0,100',
+        'materia_en_repeticion' => 'boolean',
         ];
     }
 }

@@ -22,8 +22,8 @@ class StoreSociaRequest extends FormRequest
     public function rules()
     {
         return [
-              'id_carrera' => 'required|exists:carreras,id',
-              'integrantes_familia' => 'sometimes|required|integer|min:1'
+            'id_estudiante' => 'required|exists:estudiantes,id'.$this->route('estudiante'),
+            'integrantes_familia' => 'required|integer|min:1',
         ];
     }
 }

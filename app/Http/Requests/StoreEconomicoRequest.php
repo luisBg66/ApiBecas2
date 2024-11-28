@@ -22,7 +22,8 @@ class StoreEconomicoRequest extends FormRequest
     public function rules(): array
     {
         return [
-             'ingresos' => 'sometimes|required|numeric|min:0'
+            'id_estudiante' => 'required|exists:estudiantes,id',
+            'ingresos' => 'nullable|numeric|min:0',
         ];
     }
 }

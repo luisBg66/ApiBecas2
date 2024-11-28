@@ -22,8 +22,8 @@ class UpdateEscolarRequest extends FormRequest
     public function rules()
     {
         return [
-            'promedio' => 'sometimes|required|numeric|between:0,100',
-            'materias_reprobadas' => 'sometimes|required|integer|min:0',
+            'promedio' => 'nullable|numeric|between:0,10',
+            'materia_en_repeticion' => 'boolean',
         ];
     }
 }

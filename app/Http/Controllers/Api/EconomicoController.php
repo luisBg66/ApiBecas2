@@ -3,30 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEconomicoRequest;
 use App\Http\Requests\UpdateEconomicoRequest;
 use App\Http\Resources\EconomicoResource;
 use App\Models\Economia;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class EconomicoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    //Vista todos los datos
     public function index()
     {
         $economico = Economia::all();
         return EconomicoResource::collection($economico);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    //Crear un nuevo registro
+    public function store(StoreEconomicoRequest $request)
     {
-        $economico=Economia::created($request->validated());
-        return EconomicoResource::collection($economico);
-       
+        $economia = Economia::create($request->validated());
+        return response()->json($economia, 201);
+       return new EconomicoResource($economia);
+        // return new CarreraResource($carrera);
     }
 
     /**
@@ -51,6 +49,8 @@ class EconomicoController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $economia = Economia::findOrFail($id);
+        $economia->delete();
+        return response()->json(['message' => 'Registro eliminado correctamente']);
     }
 }

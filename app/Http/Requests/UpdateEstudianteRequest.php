@@ -22,11 +22,13 @@ class UpdateEstudianteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre' => 'required|string|max:255',
+            //'numero_control' => 'nullable|string|unique:estudiantes,numero_control,' . $this->route('estudiante'),
+            'nombre' => 'nullable|string|max:255',
             'apellido_paterno' => 'nullable|string|max:255',
-            'apellido_materno' => 'required|string|max:255',
-            'id_carrera' => 'required|exists:carreras,id',
-            'correo' => 'required|email|max:255|unique:estudiantes,correo,' . $this->route('estudiante'),
+            'apellido_materno' => 'nullable|string|max:255',
+            'id_carrera' => 'nullable|exists:carreras,id',
+            'correo' => 'nullable|email|unique:estudiantes,correo,' . $this->route('estudiante'),
+    
         ];
     }
 }

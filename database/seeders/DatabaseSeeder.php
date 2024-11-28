@@ -20,13 +20,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
+       // User::factory(10)->create();
 
-    /*  User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-
-        ]); */
+    
   /*  $this->call([
             CarrerasSeeder::class,
             EstudiantesSeeder::class,
@@ -37,14 +33,37 @@ class DatabaseSeeder extends Seeder
 
         ]); */
 
-        $this->call([
+        $this->call(
+            [ RolesAndPermissionsSeeder::class,
             CarrerasSeeder::class,
             EstudiantesSeeder::class,
             DireccionesSeeder::class,
             EconomiaSeeder::class,
             SocialSeeder::class,
             EscolarSeeder::class,
-
+           
         ]);
+
+        User::factory()->create([
+            'nombre'=>'Milly',
+            'apellido_paterno'=>'castañeda',
+            'apellido_materno'=>'Alcantar',
+            'rango'=>'Presisndete',
+            'email'=>'milly12@asmin.com',
+         ])->assignRole('Precidente');
+            
+    
+         User::factory()->create([
+            'nombre'=>'Luis',
+            'apellido_paterno'=>'cassd',
+            'apellido_materno'=>'dsdsds',
+            'rango'=>'Bice',
+            'email'=>'Luis12@asmin.com',
+         ])->assignRole('usurcomite');
+    
+         User::factory(29)->create()->each(function ($user) {
+            $user->assignRole('Usuario');
+        });      
+
     }
 }

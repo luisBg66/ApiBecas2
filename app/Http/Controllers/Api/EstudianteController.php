@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreEstudianteRequest;
+//use App\Http\Requests\StoreEstudianteRequest;
 use App\Http\Requests\UpdateEstudianteRequest;
 use App\Http\Resources\EstudianteResource;
 use App\Models\Estudiante;
@@ -13,13 +14,12 @@ use Illuminate\Http\Request;
 
 class EstudianteController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+
     public function index()
     {
         $estudiante = Estudiante::all();
         return EstudianteResource::collection($estudiante);
+        
     }
 
     /**
@@ -27,8 +27,21 @@ class EstudianteController extends Controller
      */
     public function store(StoreEstudianteRequest $request)
     {
+      /*  $validatedData = $request->validate([
+            'numero_control' => 'required|string|unique:estudiantes,numero_control',
+            'nombre' => 'required|string|max:255',
+            'apellido_paterno' => 'nullable|string|max:255',
+            'apellido_materno' => 'required|string|max:255',
+            'id_carrera' => 'required|exists:carreras,id',
+            'correo' => 'required|email|unique:estudiantes,correo',
+        ]);
+
+        $estudiante = Estudiante::create($validatedData);
+
+        return response()->json($estudiante, 201);*/
+
         $estudiante = Estudiante::create($request->validated());
-        return new EstudianteResource($estudiante);
+        return response()->json($estudiante, 201);
     }
 
     /**
@@ -36,6 +49,7 @@ class EstudianteController extends Controller
      */
     public function show(Estudiante $estudiante)
     {
+        
         return new EstudianteResource($estudiante);
     }
 
@@ -44,6 +58,14 @@ class EstudianteController extends Controller
      */
     public function update(UpdateEstudianteRequest $request,  $id)
     {
+       // $estudiante = Estudiante::findOrFail($id);
+        //$estudiante->update($request->validated());
+        //return response()->json($estudiante);
+
+       // $estudiante->update($request->validated());
+       // return new EstudianteResource($estudiante);
+
+
         $estudiante= Estudiante::find($id);
 
         if (!$estudiante) {
@@ -52,6 +74,7 @@ class EstudianteController extends Controller
     
         $estudiante->update($request->validated());
         return new EstudianteResource($estudiante);
+        
     }
 
     /**
@@ -64,6 +87,54 @@ class EstudianteController extends Controller
     }
 
 
-    
+
+public function index_selecion()
+{
+    // Consultar los estudiantes y sus datos relacionados
+    $resultados = DB::table('estudiantes')
+        ->join('carreras', 'estudiantes.id_carrera', '=', 'carreras.id')
+        ->join('direcciones', 'estudiantes.id', '=', 'direcciones.id_estudiante')
+        ->join('economia', 'estudiantes.id', '=', 'economia.id_estudiante')
+        ->join('social', 'estudiantes.id', '=', 'social.id_estudiante')
+        ->join('escolar', 'estudiantes.id', '=', 'escolar.id_estudiante')
+        ->where('escolar.materia_en_repeticion', '=', 0) // Excluir materias en repetición
+        ->where('escolar.promedio', '>', 8.5) // Filtrar por promedio
+        ->orderBy('economia.ingresos', 'asc') // Ordenar por ingresos
+        ->select(
+            'estudiantes.id AS id_estudiante',
+            'estudiantes.numero_control',
+            'estudiantes.nombre',
+            'estudiantes.apellido_paterno',
+            'estudiantes.apellido_materno',
+            'estudiantes.correo',
+            'carreras.nombre_carrera',
+            'direcciones.municipio',
+            'direcciones.colonia',
+            'direcciones.calle',
+            'direcciones.numero',
+            'economia.ingresos',
+            'social.integrantes_familia',
+            'escolar.promedio',
+            'escolar.materia_en_repeticion'
+        )
+        ->get();
+
+    // Insertar los datos en la tabla requerimientos
+    foreach ($resultados as $estudiante) {
+        DB::table('requerimientos')->insert([
+            'id_estudiante' => $estudiante->id_estudiante,
+            'nombre_requerimiento' => "Estudiante con ID {$estudiante->id_estudiante}",
+            'materia_en_repeticion' => $estudiante->materia_en_repeticion,
+            'promedio' => $estudiante->promedio,
+            'ingresos' => $estudiante->ingresos,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+    }
+
+    // Retornar los resultados en formato JSON
+    return response()->json($resultados);
+}
+
     
 }

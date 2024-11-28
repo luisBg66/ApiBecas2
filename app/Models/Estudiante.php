@@ -3,10 +3,15 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+//use Illuminate\Testing\Fluent\Concerns\Has;
+
+use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class Estudiante extends Model
 {
-    use HasFactory;
+    use HasFactory,Notifiable,HasApiTokens,HasRoles;
     protected $table = 'estudiantes';
     
     public $timestamps = true;

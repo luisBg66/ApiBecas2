@@ -3,48 +3,51 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+
+use App\Http\Resources\CarreraResource;
+
 use App\Http\Requests\StoreCarreraRequest;
 use App\Http\Requests\UpdateCarreraRequest;
-use App\Http\Resources\CarreraCollection;
-use App\Http\Resources\CarreraResource;
+//use App\Http\Resources\CarreraCollection;
+
 use App\Models\Carrera;
-use Illuminate\Http\Request;
+
 
 class CarreraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use AuthorizesRequests;
+
+   
     public function index()
-    {
+    {  
+        // $this->authorize('Ver registros');
         $carreras = Carrera::all();
         return CarreraResource::collection($carreras);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+
+    //Funcio crear carrera 
     public function store(StoreCarreraRequest $request)
     {
+       // $this->authorize('Crear Rregistro/destruir');
         $carrera = Carrera::create($request->validated());
         return new CarreraResource($carrera);
     }
 
-    /**
-     * Display the specified resource.
-     */
+        //ver registro por id
     public function show(Carrera $carrera)
     {
-   
-
+        //$this->authorize('Ver registros');
         return new CarreraResource($carrera);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+     //Actualisar registro
     public function update(UpdateCarreraRequest $request,$id)
     {
+        //$this->authorize('Modificar registros');
+
         $carrera = Carrera::find($id);
 
         if (!$carrera) {
@@ -55,11 +58,9 @@ class CarreraController extends Controller
         return new CarreraResource($carrera);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    //Eliminar registro
     public function destroy(Carrera $carrera)
-    {
+    {   $this->authorize('Crear Rregistro/destruir');
         $carrera->delete();
         return response()->json(['message' => 'Carrera eliminada'], 200);
     }

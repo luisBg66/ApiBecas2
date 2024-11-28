@@ -8,18 +8,18 @@ class Social extends Model
 {
     use HasFactory;
     protected $table = 'social';
-    protected $primaryKey = 'id';
+   // protected $primaryKey = 'id';
     public $timestamps = true;
 
-    public $incrementing = false;
 
     protected $fillable = [
+        'id',
         'id_estudiante',
         'integrantes_familia',
     ];
 
     public function estudiante()
     {
-        return $this->belongsTo(Estudiante::class, 'id_estudiante', 'id_numero_control');
+        return $this->belongsTo(Estudiante::class, 'id_estudiante', 'id');
     }
 }

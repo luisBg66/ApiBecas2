@@ -3,13 +3,14 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Symfony\Contracts\Service\Attribute\Required;
 
-class StoreCarreraRequest extends FormRequest
+class RequerimientosRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -19,11 +20,13 @@ class StoreCarreraRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             
-            'nombre_carrera' => 'required|string|max:255|unique:carreras,nombre_carrera,' . $this->route('carrera'),
+            'materia_en_repeticion' => 'required|boolean|1',
+            'promedio'=>'required|integer|min=8.5',
+
         ];
     }
 }

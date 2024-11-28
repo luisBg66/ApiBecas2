@@ -7,7 +7,7 @@ use App\Http\Requests\StoreSociaRequest;
 use App\Http\Requests\UpdateSocialRequest;
 use App\Http\Resources\SocialResource;
 use App\Models\Social;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class SocialController extends Controller
 {
@@ -23,10 +23,10 @@ class SocialController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSociaRequest $request)
+   public function store(StoreSociaRequest $request)
     {
-        $social = Social::create($request->validated());
-        return new SocialResource($social);
+       $request = Social::create($request->validated());
+        return new SocialResource($request);
     }
 
     /**
@@ -49,6 +49,9 @@ class SocialController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $social = Social::findOrFail($id);
+        $social->delete();
+        return response()->json(['message' => 'Registro eliminado correctamente']);
+    
     }
 }
