@@ -8,6 +8,8 @@ use App\Http\Controllers\Api\EscolarController;
 use App\Http\Controllers\Api\EstudianteController;
 use App\Http\Controllers\Api\RequerimientoController;
 use App\Http\Controllers\Api\SocialController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UsuarioController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
