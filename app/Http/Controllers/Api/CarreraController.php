@@ -31,7 +31,7 @@ class CarreraController extends Controller
     //Funcio crear carrera 
     public function store(StoreCarreraRequest $request)
     {
-       // $this->authorize('Crear Rregistro/destruir');
+        $this->authorize('CrearEliminar');
         $carrera = Carrera::create($request->validated());
         return new CarreraResource($carrera);
     }
@@ -39,14 +39,14 @@ class CarreraController extends Controller
         //ver registro por id
     public function show(Carrera $carrera)
     {
-        //$this->authorize('Ver registros');
+        $this->authorize('Ver registros');
         return new CarreraResource($carrera);
     }
 
      //Actualisar registro
     public function update(UpdateCarreraRequest $request,$id)
     {
-        //$this->authorize('Modificar registros');
+        $this->authorize('Modificar registros');
 
         $carrera = Carrera::find($id);
 
@@ -60,7 +60,7 @@ class CarreraController extends Controller
 
     //Eliminar registro
     public function destroy(Carrera $carrera)
-    {   $this->authorize('Crear Rregistro/destruir');
+    {   $this->authorize('CrearEliminar');
         $carrera->delete();
         return response()->json(['message' => 'Carrera eliminada'], 200);
     }

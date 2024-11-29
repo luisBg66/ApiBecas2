@@ -20,7 +20,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $usurcomite = Role::create(['name' => 'usurcomite']);
         $usuario = Role::create(['name' => 'Usuario']);
 
-        Permission::create(['name' => 'Crear Rregistro/destruir'])->syncRoles([$Precidente]);
+        Permission::create(['name' => 'CrearEliminar'])->syncRoles([$Precidente]);
         Permission::create(['name' => 'Modificar registros'])->syncRoles([$Precidente, $usurcomite]);
         Permission::create(['name' => 'Ver registros'])->syncRoles([$usuario, $usurcomite, $Precidente]);
     }

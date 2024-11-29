@@ -18,10 +18,10 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function(){
-});
+
 // En routes/api.php
 Route::apiResource('carreras', CarreraController::class); //1
-    
+});
 // En routes/api.php
 Route::apiResource('estudiantes', EstudianteController::class);//1
 
