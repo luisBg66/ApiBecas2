@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Carrera;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,18 +28,19 @@ class DatabaseSeeder extends Seeder
 
         ]); */
 
+        $this->call(RolesAndPermissionsSeeder::class);
+
+        Carrera::factory(5)->create(); // Genera 5 carreras ficticias
+
         $this->call(
-            [ RolesAndPermissionsSeeder::class,
+            [ 
             EstudianteSeeder::class,
             DireccionSeeder::class,
             EconomiaSeeder::class,
             SocialSeeder::class,
             EscolarSeeder::class,
-            CarreraSeeder::class,
            
         ]);
-
-        
         User::factory()->create([
             'nombre'=>'Milly',
             'apellido_paterno'=>'castañeda',
