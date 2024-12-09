@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ]); */
 
         $this->call(RolesAndPermissionsSeeder::class);
-
+/*
         Carrera::factory(5)->create(); // Genera 5 carreras ficticias
 
         $this->call(
@@ -41,6 +41,7 @@ class DatabaseSeeder extends Seeder
             EscolarSeeder::class,
            
         ]);
+        */
         User::factory()->create([
             'nombre'=>'Milly',
             'apellido_paterno'=>'castañeda',
