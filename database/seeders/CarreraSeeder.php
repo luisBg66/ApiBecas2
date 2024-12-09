@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Carrera;
 
-class CarrerasSeeder extends Seeder
+class Carreraseeder extends Seeder
 {
     /**
      * Run the database seeds.

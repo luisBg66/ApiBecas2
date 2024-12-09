@@ -2,17 +2,17 @@
 
 namespace Database\Seeders;
 
-use App\Models\Direccion;
+use App\Models\Estudiante;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class DireccionesSeeder extends Seeder
+class EstudianteSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Direccion::factory(20)->create();
+        Estudiante::factory(20)->create();
     }
 }

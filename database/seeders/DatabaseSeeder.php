@@ -1,14 +1,7 @@
 <?php
 
 namespace Database\Seeders;
-use App\Models\Carrera;
-use App\Models\Estudiante;
-use App\Models\Social;
-use App\Models\Direccion;
-use App\Models\Economia;
-use App\Models\Escolar;
-use App\Models\Requerimiento;
-use App\Models\Aceptado;
+
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -35,15 +28,16 @@ class DatabaseSeeder extends Seeder
 
         $this->call(
             [ RolesAndPermissionsSeeder::class,
-            CarrerasSeeder::class,
-            EstudiantesSeeder::class,
-            DireccionesSeeder::class,
+            CarreraSeeder::class,
+            EstudianteSeeder::class,
+            DireccionSeeder::class,
             EconomiaSeeder::class,
             SocialSeeder::class,
             EscolarSeeder::class,
            
         ]);
 
+        
         User::factory()->create([
             'nombre'=>'Milly',
             'apellido_paterno'=>'castañeda',
