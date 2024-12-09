@@ -23,6 +23,6 @@ class Direccion extends Model
 
     public function estudiante()
     {
-        return $this->belongsTo(Estudiante::class, 'id_estudiante', 'id_numero_control');
+        return $this->belongsTo(Estudiante::class, 'id_estudiante', 'id');
     }
 }

@@ -23,8 +23,8 @@ class EstudianteController extends Controller
         return EstudianteResource::collection($estudiante);
         
     }
-
-    /**
+/*
+    
      * Store a newly created resource in storage.
      */
     public function store(StoreEstudianteRequest $request)
@@ -43,8 +43,8 @@ class EstudianteController extends Controller
 
         return response()->json($estudiante, 201);*/
 
-        $estudiante = Estudiante::create($request->validated());
-        return response()->json($estudiante, 201);
+      $estudiante = Estudiante::create($request->validated());
+      return response()->json($estudiante, 201);
     }
 
     /**
@@ -81,9 +81,6 @@ class EstudianteController extends Controller
         
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Estudiante $estudiante)
     {
         $this->authorize('CrearEliminar');
@@ -95,7 +92,7 @@ class EstudianteController extends Controller
 
 public function index_selecion()
 {
-    $this->authorize('Ver registros');
+    //$this->authorize('Ver registros');
     // Consultar los estudiantes y sus datos relacionados
     $resultados = DB::table('estudiantes')
         ->join('carreras', 'estudiantes.id_carrera', '=', 'carreras.id')

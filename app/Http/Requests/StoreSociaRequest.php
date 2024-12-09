@@ -22,7 +22,7 @@ class StoreSociaRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_estudiante' => 'required|exists:estudiantes,id'.$this->route('estudiante'),
+            'id_estudiante' => 'required|exists:estudiantes,id',
             'integrantes_familia' => 'required|integer|min:1',
         ];
     }

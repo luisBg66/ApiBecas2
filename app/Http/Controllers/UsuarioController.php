@@ -33,9 +33,7 @@ class UsuarioController extends Controller
         return response()->json($usuario, 200);
     }
 
-    /**
-     * Crear un nuevo usuario.
-     */
+
     public function store(Request $request)
     {
         $validated = $request->validate([

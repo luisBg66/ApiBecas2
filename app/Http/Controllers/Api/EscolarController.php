@@ -38,7 +38,6 @@ class EscolarController extends Controller
 
     }
 
-    //
     public function show(Escolar $escolar)
     {
         $this->authorize('Modificar registros');

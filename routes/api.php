@@ -38,7 +38,7 @@ Route::apiResource('economico', EconomicoController::class);
 
 
 
-Route::get('requerimientos', [RequerimientoController::class, 'index']);
+//oute::get('requerimientos', [EstudianteController::class, 'index_requriminetos']);
 
 
 //Route::post('/filtrar-requerimientos', [EstudianteController::class, 'filtrarYAgregarRequerimientos']);
@@ -46,7 +46,7 @@ Route::get('requerimientos', [RequerimientoController::class, 'index']);
 
 
 
-//Route::get('Selecion', [EstudianteController::class, 'index_selecion']);
+Route::get('Selecion', [EstudianteController::class, 'index_selecion']);
 
 
 

@@ -13,27 +13,41 @@ use App\Http\Requests\UpdateCarreraRequest;
 //use App\Http\Resources\CarreraCollection;
 
 use App\Models\Carrera;
+
+
+class CarreraController extends Controller
+{ /**
+    * @OA\Info(
+    *     title="API de Carreras",
+    *     version="1.0.0",
+    *     description="API para gestionar las carreras académicas"
+    * )
+    */
+    use AuthorizesRequests;
+
 /**
- * @OA\Info(
- *     title="API Documentation",
- *     version="1.0.0",
+ * @OA\Get(
+ *     path="/api/carreras",
+ *     summary="Obtener lista de carreras",
+ *     tags={"Carreras"},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Lista de carreras recuperada exitosamente",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="nombre_carrera", type="string", example="Ingeniería en Sistemas")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado"
+ *     )
  * )
  */
 
-class CarreraController extends Controller
-{
-    use AuthorizesRequests;
-    /**
-     * @OA\Get(
-     *     path="/api/example",
-     *     summary="Obtiene una lista de ejemplos",
-     *     @OA\Response(
-     *         response=200,
-     *         description="Lista de ejemplos"
-     *     )
-     * )
-     */
-   
     public function index()
     {  
       //  $this->authorize('Ver registros');
@@ -44,7 +58,27 @@ class CarreraController extends Controller
 
     //Funcio crear carrera 
     public function store(StoreCarreraRequest $request)
-    {
+    { /* @OA\Post(
+        *     path="/api/carreras",
+        *     summary="Crear una nueva carrera",
+        *     tags={"Carreras"},
+        *     @OA\RequestBody(
+        *         required=true,
+        *         @OA\JsonContent(
+        *             required={"nombre"},
+        *             @OA\Property(property="nombre", type="string", example="Ingeniería en Sistemas"),
+        *         )
+        *     ),
+        *     @OA\Response(
+        *         response=201,
+        *         description="Carrera creada exitosamente"
+        *     ),
+        *     @OA\Response(
+        *         response=403,
+        *         description="No autorizado"
+        *     )
+        * )
+        */
         $this->authorize('CrearEliminar');
         $carrera = Carrera::create($request->validated());
         return new CarreraResource($carrera);

@@ -21,8 +21,10 @@ class DireccionController extends Controller
     public function index()
     {
         $this->authorize('Ver registros');
-        $direcciones = Direccion::all();
-        return DireccionResource::collection($direcciones);
+        $direcciones = Direccion::with('estudiante:id,nombre,apellido_paterno,apellido_materno')->get();
+        return response()->json($direcciones);
+       // $direcciones = Direccion::all();
+       // return DireccionResource::collection($direcciones);
     }
    // Crear un nuevo registro
     public function store(StoreDireccionRequest $request)
