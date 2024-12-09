@@ -13,6 +13,6 @@ class EconomiaSeeder extends Seeder
      */
     public function run(): void
     {
-        Economia::factory()->count(20)->create();
+        Economia::factory(20)->create();
     }
 }

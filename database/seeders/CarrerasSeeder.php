@@ -13,6 +13,6 @@ class CarrerasSeeder extends Seeder
      */
     public function run(): void
     {
-        Carrera::factory()->count(5)->create(); // Genera 5 carreras ficticias
+        Carrera::factory(5)->create(); // Genera 5 carreras ficticias
     }
 }

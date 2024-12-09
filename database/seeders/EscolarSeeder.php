@@ -13,6 +13,6 @@ class EscolarSeeder extends Seeder
      */
     public function run(): void
     {
-        Escolar::factory()->count(20)->create();
+        Escolar::factory(20)->create();
     }
 }

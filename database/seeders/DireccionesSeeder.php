@@ -13,6 +13,6 @@ class DireccionesSeeder extends Seeder
      */
     public function run(): void
     {
-        Direccion::factory()->count(20)->create();
+        Direccion::factory(20)->create();
     }
 }

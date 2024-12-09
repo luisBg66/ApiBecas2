@@ -13,6 +13,6 @@ class SocialSeeder extends Seeder
      */
     public function run(): void
     {
-        Social::factory()->count(20)->create();
+        Social::factory(20)->create();
     }
 }
