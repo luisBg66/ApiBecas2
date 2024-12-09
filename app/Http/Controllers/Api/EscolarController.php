@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-//use App\Http\Requests\StoreEscolarRequest;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use App\Http\Requests\StoreEscolarRequest;
 use App\Http\Requests\UpdateEscolarRequest;
 use App\Http\Resources\EscolarResource;
 use App\Models\Escolar;
@@ -11,9 +12,11 @@ use Illuminate\Http\Request;
 
 class EscolarController extends Controller
 {
+    use AuthorizesRequests;
     //Vista todos los registros
     public function index()
-    {
+    {   
+        $this->authorize('CrearEliminar');
         $escolar=Escolar::all();
         return EscolarResource::collection($escolar);
     }
@@ -23,7 +26,7 @@ class EscolarController extends Controller
     {
        //$escolar= Escolar::created($request->validate());
       // return new EscolarResource($escolar);
-
+      $this->authorize('Modificar registros');
       $request->validate([
         'id_estudiante' => 'required|exists:estudiantes,id',
         'promedio' => 'required|numeric|between:0,100',
@@ -35,21 +38,17 @@ class EscolarController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     */
+    //
     public function show(Escolar $escolar)
     {
-      // $escolar = $escolar = load('permission:Ver registros');
+        $this->authorize('Modificar registros');
         return new EscolarResource($escolar);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    
     public function update(UpdateEscolarRequest $request, $id)
     {
-   
+        $this->authorize('Ver registros');
         $escolar = Escolar::findOrFail($id);
         $escolar->update($request->validated());
         return response()->json($escolar);
@@ -57,11 +56,10 @@ class EscolarController extends Controller
     
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    
     public function destroy(string $id)
-    {
+    {   
+        $this->authorize('CrearEliminar');
         $escolar = Escolar::findOrFail($id);
         $escolar->delete();
         return response()->json(['message' => 'Registro eliminado correctamente']);

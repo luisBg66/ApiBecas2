@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Requests\StoreEstudianteRequest;
 //use App\Http\Requests\StoreEstudianteRequest;
 use App\Http\Requests\UpdateEstudianteRequest;
@@ -14,9 +15,10 @@ use Illuminate\Http\Request;
 
 class EstudianteController extends Controller
 {
-
+    use AuthorizesRequests;
     public function index()
-    {
+    {   
+        $this->authorize('Ver registros');
         $estudiante = Estudiante::all();
         return EstudianteResource::collection($estudiante);
         
@@ -26,7 +28,8 @@ class EstudianteController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(StoreEstudianteRequest $request)
-    {
+    {      
+        $this->authorize('CrearEliminar');
       /*  $validatedData = $request->validate([
             'numero_control' => 'required|string|unique:estudiantes,numero_control',
             'nombre' => 'required|string|max:255',
@@ -49,7 +52,7 @@ class EstudianteController extends Controller
      */
     public function show(Estudiante $estudiante)
     {
-        
+        $this->authorize('Ver registros');   
         return new EstudianteResource($estudiante);
     }
 
@@ -58,6 +61,7 @@ class EstudianteController extends Controller
      */
     public function update(UpdateEstudianteRequest $request,  $id)
     {
+        $this->authorize('Modificar registros');
        // $estudiante = Estudiante::findOrFail($id);
         //$estudiante->update($request->validated());
         //return response()->json($estudiante);
@@ -82,6 +86,7 @@ class EstudianteController extends Controller
      */
     public function destroy(Estudiante $estudiante)
     {
+        $this->authorize('CrearEliminar');
         $estudiante->delete();
         return response()->json(['message' => 'Estudiante eliminado correctamente.'], 200);
     }
@@ -90,6 +95,7 @@ class EstudianteController extends Controller
 
 public function index_selecion()
 {
+    $this->authorize('Ver registros');
     // Consultar los estudiantes y sus datos relacionados
     $resultados = DB::table('estudiantes')
         ->join('carreras', 'estudiantes.id_carrera', '=', 'carreras.id')

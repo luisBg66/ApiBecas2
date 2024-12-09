@@ -1,0 +1,20 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/example": {
+            "get": {
+                "summary": "Obtiene una lista de ejemplos",
+                "operationId": "d9541b6573d0261e974e85d7df2588df",
+                "responses": {
+                    "200": {
+                        "description": "Lista de ejemplos"
+                    }
+                }
+            }
+        }
+    }
+}

@@ -13,16 +13,30 @@ use App\Http\Requests\UpdateCarreraRequest;
 //use App\Http\Resources\CarreraCollection;
 
 use App\Models\Carrera;
-
+/**
+ * @OA\Info(
+ *     title="API Documentation",
+ *     version="1.0.0",
+ * )
+ */
 
 class CarreraController extends Controller
 {
     use AuthorizesRequests;
-
+    /**
+     * @OA\Get(
+     *     path="/api/example",
+     *     summary="Obtiene una lista de ejemplos",
+     *     @OA\Response(
+     *         response=200,
+     *         description="Lista de ejemplos"
+     *     )
+     * )
+     */
    
     public function index()
     {  
-        // $this->authorize('Ver registros');
+      //  $this->authorize('Ver registros');
         $carreras = Carrera::all();
         return CarreraResource::collection($carreras);
     }

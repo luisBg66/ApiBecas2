@@ -21,7 +21,7 @@ Route::middleware(['auth:sanctum'])->group(function(){
 
 // En routes/api.php
 Route::apiResource('carreras', CarreraController::class); //1
-});
+
 // En routes/api.php
 Route::apiResource('estudiantes', EstudianteController::class);//1
 
@@ -63,5 +63,5 @@ Route::post('/users/{id}/assign-role', [UsuarioController::class, 'assignRole'])
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
 Route::middleware('auth:sanctum')->get('/user-profile', [AuthController::class, 'userProfile']);
 
-
+});
 Route::post('/login', [AuthController::class, 'login']);
