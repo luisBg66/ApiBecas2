@@ -16,6 +16,43 @@ use Illuminate\Http\Request;
 class EstudianteController extends Controller
 {
     use AuthorizesRequests;
+    /**
+ * @OA\Info(
+ *     title="API de Estudiantes",
+ *     version="1.0.0",
+ *     description="API para gestionar información de estudiantes"
+ * )
+ */
+
+/**
+ * @OA\Get(
+ *     path="/api/estudiantes",
+ *     summary="Obtener lista de estudiantes",
+ *     tags={"Estudiantes"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Response(
+ *         response=200,
+ *         description="Lista de estudiantes recuperada exitosamente",
+ *         @OA\JsonContent(
+ *             type="array",
+ *             @OA\Items(
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="numero_control", type="string", example="19141142"),
+ *                 @OA\Property(property="nombre", type="string", example="Juan"),
+ *                 @OA\Property(property="apellido_paterno", type="string", example="Pérez"),
+ *                 @OA\Property(property="apellido_materno", type="string", example="García"),
+ *                 @OA\Property(property="id_carrera", type="integer", example=1),
+ *                 @OA\Property(property="carrera", type="string", example="Ingeniería en Sistemas"),
+ *                 @OA\Property(property="correo", type="string", example="juan.perez@ejemplo.com")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado - Requiere permiso 'Ver registros'"
+ *     )
+ * )
+ */
     public function index()
     {   
         $this->authorize('Ver registros');
@@ -23,10 +60,47 @@ class EstudianteController extends Controller
         return EstudianteResource::collection($estudiante);
         
     }
-/*
-    
-     * Store a newly created resource in storage.
-     */
+
+/**
+ * @OA\Post(
+ *     path="/api/estudiantes",
+ *     summary="Crear un nuevo estudiante",
+ *     tags={"Estudiantes"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(property="numero_control", type="string", example="19141142"),
+ *             @OA\Property(property="nombre", type="string", example="Juan"),
+ *             @OA\Property(property="apellido_paterno", type="string", example="Pérez"),
+ *             @OA\Property(property="apellido_materno", type="string", example="García"),
+ *             @OA\Property(property="id_carrera", type="integer", example=1),
+ *             @OA\Property(property="correo", type="string", example="juan.perez@ejemplo.com")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Estudiante creado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="numero_control", type="string", example="19141142"),
+ *             @OA\Property(property="nombre", type="string", example="Juan"),
+ *             @OA\Property(property="apellido_paterno", type="string", example="Pérez"),
+ *             @OA\Property(property="apellido_materno", type="string", example="García"),
+ *             @OA\Property(property="id_carrera", type="integer", example=1),
+ *             @OA\Property(property="correo", type="string", example="juan.perez@ejemplo.com")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado - Requiere permiso 'CrearEliminar'"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Error de validación"
+ *     )
+ * )
+ */
     public function store(StoreEstudianteRequest $request)
     {      
         $this->authorize('CrearEliminar');
@@ -47,9 +121,43 @@ class EstudianteController extends Controller
       return response()->json($estudiante, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
+  /**
+ * @OA\Get(
+ *     path="/api/estudiantes/{id}",
+ *     summary="Obtener un estudiante específico",
+ *     tags={"Estudiantes"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID del estudiante",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Estudiante encontrado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="numero_control", type="string", example="19141142"),
+ *             @OA\Property(property="nombre", type="string", example="Juan"),
+ *             @OA\Property(property="apellido_paterno", type="string", example="Pérez"),
+ *             @OA\Property(property="apellido_materno", type="string", example="García"),
+ *             @OA\Property(property="id_carrera", type="integer", example=1),
+ *             @OA\Property(property="carrera", type="string", example="Ingeniería en Sistemas"),
+ *             @OA\Property(property="correo", type="string", example="juan.perez@ejemplo.com")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Estudiante no encontrado"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado - Requiere permiso 'Ver registros'"
+ *     )
+ * )
+ */
     public function show(Estudiante $estudiante)
     {
         $this->authorize('Ver registros');   
@@ -57,8 +165,55 @@ class EstudianteController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
+ * @OA\Put(
+ *     path="/api/estudiantes/{id}",
+ *     summary="Actualizar un estudiante existente",
+ *     tags={"Estudiantes"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID del estudiante a actualizar",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             @OA\Property(property="nombre", type="string", example="Juan Carlos"),
+ *             @OA\Property(property="apellido_paterno", type="string", example="Pérez"),
+ *             @OA\Property(property="apellido_materno", type="string", example="García"),
+ *             @OA\Property(property="id_carrera", type="integer", example=2),
+ *             @OA\Property(property="correo", type="string", example="juan.perez.nuevo@ejemplo.com")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Estudiante actualizado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="numero_control", type="string", example="19141142"),
+ *             @OA\Property(property="nombre", type="string", example="Juan Carlos"),
+ *             @OA\Property(property="apellido_paterno", type="string", example="Pérez"),
+ *             @OA\Property(property="apellido_materno", type="string", example="García"),
+ *             @OA\Property(property="id_carrera", type="integer", example=2),
+ *             @OA\Property(property="correo", type="string", example="juan.perez.nuevo@ejemplo.com")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Estudiante no encontrado"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado - Requiere permiso 'Modificar registros'"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Error de validación"
+ *     )
+ * )
+ */
     public function update(UpdateEstudianteRequest $request,  $id)
     {
         $this->authorize('Modificar registros');
@@ -80,7 +235,36 @@ class EstudianteController extends Controller
         return new EstudianteResource($estudiante);
         
     }
-
+/**
+ * @OA\Delete(
+ *     path="/api/estudiantes/{id}",
+ *     summary="Eliminar un estudiante",
+ *     tags={"Estudiantes"},
+ *     security={{"bearerAuth":{}}},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID del estudiante a eliminar",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Estudiante eliminado exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Estudiante eliminado correctamente.")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Estudiante no encontrado"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado - Requiere permiso 'CrearEliminar'"
+ *     )
+ * )
+ */
     public function destroy(Estudiante $estudiante)
     {
         $this->authorize('CrearEliminar');
