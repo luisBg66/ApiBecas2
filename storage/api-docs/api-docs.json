@@ -1,10 +1,228 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Carrera controlador",
+        "title": "Carreras",
         "version": "1.0.0"
     },
     "paths": {
-        "/api/carreras": {}
-    }
+        "/api/carreras": {
+            "get": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Obtener lista de carreras",
+                "operationId": "c306ace13bc538822c8319dbef62f554",
+                "responses": {
+                    "200": {
+                        "description": "Lista de carreras recuperada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre_carrera": {
+                                                "type": "string",
+                                                "example": "Ingeniería en Sistemas"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Crear una nueva carrera",
+                "operationId": "4674224d48b44c250ccdfd5e9a8c4e0a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre_carrera"
+                                ],
+                                "properties": {
+                                    "nombre_carrera": {
+                                        "type": "string",
+                                        "example": "Ingeniería en Sistemas"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Carrera creada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre_carrera": {
+                                            "type": "string",
+                                            "example": "Ingeniería en Sistemas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            }
+        },
+        "/api/carreras/{id}": {
+            "get": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Obtener una carrera específica",
+                "operationId": "93d91e0ee45ed57b43846dd0bf54e1dc",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la carrera",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Carrera encontrada exitosamente",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre_carrera": {
+                                            "type": "string",
+                                            "example": "Ingeniería en Sistemas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Carrera no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Actualizar una carrera existente",
+                "operationId": "7c4437011107dc3d80b25cc90f789622",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la carrera a actualizar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "nombre_carrera"
+                                ],
+                                "properties": {
+                                    "nombre_carrera": {
+                                        "type": "string",
+                                        "example": "Ingeniería en Software"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Carrera actualizada exitosamente"
+                    },
+                    "404": {
+                        "description": "Carrera no encontrada"
+                    },
+                    "422": {
+                        "description": "Error de validación"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Carreras"
+                ],
+                "summary": "Eliminar una carrera",
+                "operationId": "508b0760ae7e0af00b4916b0ed62d975",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la carrera a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Carrera eliminada exitosamente"
+                    },
+                    "404": {
+                        "description": "Carrera no encontrada"
+                    },
+                    "403": {
+                        "description": "No autorizado"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Carreras",
+            "description": "Carreras"
+        }
+    ]
 }

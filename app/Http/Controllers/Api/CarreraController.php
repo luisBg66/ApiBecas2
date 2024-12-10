@@ -16,16 +16,21 @@ use App\Models\Carrera;
 
 
 class CarreraController extends Controller
-{ /**
-    * @OA\Info(
-    *     title="API de Carreras",
-    *     version="1.0.0",
-    *     description="API para gestionar las carreras académicas"
-    * )
-    */
-    use AuthorizesRequests;
+{
 
-/**
+ 
+ 
+    use AuthorizesRequests;
+    /**
+ * @OA\Info(
+ *     title="Carreras",
+ *     version="1.0.0"
+ * ),
+ * @OA\PathItem(
+ *     path="/api/carreras"
+ * )
+ 
+   
  * @OA\Get(
  *     path="/api/carreras",
  *     summary="Obtener lista de carreras",
@@ -46,43 +51,77 @@ class CarreraController extends Controller
  *         description="No autorizado"
  *     )
  * )
+ * @OA\Post(
+ *     path="/api/carreras",
+ *     summary="Crear una nueva carrera",
+ *     tags={"Carreras"},
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"nombre_carrera"},
+ *             @OA\Property(property="nombre_carrera", type="string", example="Ingeniería en Sistemas")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=201,
+ *         description="Carrera creada exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="nombre_carrera", type="string", example="Ingeniería en Sistemas")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Error de validación"
+ *     )
+ * )
  */
-
     public function index()
     {  
+
       //  $this->authorize('Ver registros');
         $carreras = Carrera::all();
         return CarreraResource::collection($carreras);
     }
 
 
-    //Funcio crear carrera 
+    
     public function store(StoreCarreraRequest $request)
-    { /* @OA\Post(
-        *     path="/api/carreras",
-        *     summary="Crear una nueva carrera",
-        *     tags={"Carreras"},
-        *     @OA\RequestBody(
-        *         required=true,
-        *         @OA\JsonContent(
-        *             required={"nombre"},
-        *             @OA\Property(property="nombre", type="string", example="Ingeniería en Sistemas"),
-        *         )
-        *     ),
-        *     @OA\Response(
-        *         response=201,
-        *         description="Carrera creada exitosamente"
-        *     ),
-        *     @OA\Response(
-        *         response=403,
-        *         description="No autorizado"
-        *     )
-        * )
-        */
+    { 
         $this->authorize('CrearEliminar');
         $carrera = Carrera::create($request->validated());
         return new CarreraResource($carrera);
     }
+    /**
+ * @OA\Get(
+ *     path="/api/carreras/{id}",
+ *     summary="Obtener una carrera específica",
+ *     tags={"Carreras"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la carrera",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Carrera encontrada exitosamente",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="id", type="integer", example=1),
+ *             @OA\Property(property="nombre_carrera", type="string", example="Ingeniería en Sistemas")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Carrera no encontrada"
+ *     )
+ * )
+ */
 
         //ver registro por id
     public function show(Carrera $carrera)
@@ -91,7 +130,39 @@ class CarreraController extends Controller
         return new CarreraResource($carrera);
     }
 
-     //Actualisar registro
+     /**
+ * @OA\Put(
+ *     path="/api/carreras/{id}",
+ *     summary="Actualizar una carrera existente",
+ *     tags={"Carreras"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la carrera a actualizar",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"nombre_carrera"},
+ *             @OA\Property(property="nombre_carrera", type="string", example="Ingeniería en Software")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Carrera actualizada exitosamente"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Carrera no encontrada"
+ *     ),
+ *     @OA\Response(
+ *         response=422,
+ *         description="Error de validación"
+ *     )
+ * )
+ */
     public function update(UpdateCarreraRequest $request,$id)
     {
         $this->authorize('Modificar registros');
@@ -105,7 +176,32 @@ class CarreraController extends Controller
         $carrera->update($request->validated());
         return new CarreraResource($carrera);
     }
-
+/**
+ * @OA\Delete(
+ *     path="/api/carreras/{id}",
+ *     summary="Eliminar una carrera",
+ *     tags={"Carreras"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la carrera a eliminar",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Carrera eliminada exitosamente"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Carrera no encontrada"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado"
+ *     )
+ * )
+ */
     //Eliminar registro
     public function destroy(Carrera $carrera)
     {   $this->authorize('CrearEliminar');
