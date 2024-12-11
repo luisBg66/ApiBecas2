@@ -16,15 +16,7 @@ use App\Models\Direccion;
 class DireccionController extends Controller
 {
     use AuthorizesRequests;
-    /**
- * @OA\Info(
- *     title="Direccion",
- *     version="1.0.0"
- * ),
- * @OA\PathItem(
- *     path="/api/carreras"
- * )
- */
+
 /**
  * @OA\SecurityScheme(
  *     securityScheme="bearerAuth",
@@ -68,7 +60,7 @@ class DireccionController extends Controller
  *     path="/api/direcciones",
  *     summary="Crear una nueva dirección",
  *     tags={"Direcciones"},
- * security={{"bearerAuth":{}}},
+ * security={{"bearer_token":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(

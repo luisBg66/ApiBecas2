@@ -13,13 +13,7 @@ use App\Models\Economia;
 class EconomicoController extends Controller
 {
     use AuthorizesRequests;
-    /**
- * @OA\Info(
- *     title="API de Economía",
- *     version="1.0.0",
- *     description="API para gestionar la información económica de estudiantes"
- * )
- */
+
 /**
  * @OA\Get(
  *     path="/api/economico",

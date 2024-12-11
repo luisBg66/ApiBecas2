@@ -1,5 +1,10 @@
 <?php
 
+use Hamcrest\Description;
+use Laravel\Sanctum\Sanctum;
+
+use function PHPSTORM_META\type;
+
 return [
     'default' => 'default',
     'documentations' => [
@@ -170,6 +175,12 @@ return [
         */
         'securityDefinitions' => [
             'securitySchemes' => [
+                'sanctum'=>[
+                    'type'=> 'apiKey',
+                    'description'=> 'Sanctum API token',
+                    'name' => 'Authorization',
+                    'in' => 'header',
+                ],
                 /*
                  * Examples of Security schemes
                  */
@@ -217,19 +228,8 @@ return [
                 */
             ],
             'security' => [
-                /*
-                 * Examples of Securities
-                 */
-                [
-                    /*
-                    'oauth2_security_example' => [
-                        'read',
-                        'write'
-                    ],
-
-                    'passport' => []
-                    */
-                ],
+                
+                ['sanctum' => []]
             ],
         ],
 

@@ -16,13 +16,7 @@ use Illuminate\Http\Request;
 class EstudianteController extends Controller
 {
     use AuthorizesRequests;
-    /**
- * @OA\Info(
- *     title="API de Estudiantes",
- *     version="1.0.0",
- *     description="API para gestionar información de estudiantes"
- * )
- */
+
 
 /**
  * @OA\Get(

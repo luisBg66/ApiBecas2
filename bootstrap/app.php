@@ -19,6 +19,11 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'verified' => \App\Http\Middleware\EnsureEmailIsVerified::class,
         ]);
+        $middleware->validateCsrfTokens(except:[
+           // 'https://laravelapi.up.railway.app/*',
+           'http://localhost:8000/*'
+        ]);
+
 
         //
     })

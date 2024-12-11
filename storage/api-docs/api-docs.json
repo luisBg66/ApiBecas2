@@ -1,9 +1,17 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Carreras",
+        "title": "Documentación para API REST de Recetas",
+        "contact": {
+            "email": "eescobar@cdhidalgo.tecnm.mx"
+        },
         "version": "1.0.0"
     },
+    "servers": [
+        {
+            "url": "http://localhost:8000"
+        }
+    ],
     "paths": {
         "/api/carreras": {
             "get": {
@@ -39,7 +47,12 @@
                     "403": {
                         "description": "No autorizado"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "sanctum": []
+                    }
+                ]
             },
             "post": {
                 "tags": [
@@ -285,7 +298,7 @@
                 },
                 "security": [
                     {
-                        "bearerAuth": []
+                        "bearer_token": []
                     }
                 ]
             }
@@ -1707,6 +1720,110 @@
                     }
                 ]
             }
+        },
+        "/api/login": {
+            "post": {
+                "summary": "Iniciar sesión de usuario",
+                "description": "Autenticar usuario y obtener token de acceso",
+                "operationId": "a3b306d14572d1f4bd6c064b3233e7b8",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "milly12@asmin.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Inicio de sesión exitoso",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Inicio de sesión exitoso"
+                                        },
+                                        "access_token": {
+                                            "type": "string",
+                                            "example": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9..."
+                                        },
+                                        "token_type": {
+                                            "type": "string",
+                                            "example": "Bearer"
+                                        },
+                                        "user": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "Milly"
+                                                },
+                                                "apellido_paterno": {
+                                                    "type": "string",
+                                                    "example": "castañeda"
+                                                },
+                                                "apellido_materno": {
+                                                    "type": "string",
+                                                    "example": "Alcantar"
+                                                },
+                                                "rango": {
+                                                    "type": "string",
+                                                    "example": "Presisndete"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "milly12@asmin.com"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Credenciales incorrectas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Credenciales incorrectas"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -1740,6 +1857,14 @@
                 },
                 "type": "object"
             }
+        },
+        "securitySchemes": {
+            "sanctum": {
+                "type": "apiKey",
+                "description": "Sanctum API token",
+                "name": "Authorization",
+                "in": "header"
+            }
         }
     },
     "tags": [
@@ -1766,6 +1891,11 @@
         {
             "name": "Social",
             "description": "Social"
+        }
+    ],
+    "security": [
+        {
+            "sanctum": []
         }
     ]
 }

@@ -11,13 +11,8 @@ use App\Models\Escolar;
 use Illuminate\Http\Request;
 
 class EscolarController extends Controller
-{/**
- * @OA\Info(
- *     title="API Escolar",
- *     version="1.0.0",
- *     description="API para gestionar información escolar de estudiantes"
- * )
- */
+{
+    
 /**
  * @OA\Get(
  *     path="/api/escolar",

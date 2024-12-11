@@ -14,18 +14,21 @@ use App\Http\Requests\UpdateCarreraRequest;
 
 use App\Models\Carrera;
 
-
+/**
+ * @OA\Tag(
+ *     name="NombreControlador",
+ *     description="Descripción de las operaciones del controlador"
+ * )
+ */
 class CarreraController extends Controller
 {
 
  
  
     use AuthorizesRequests;
+
     /**
- * @OA\Info(
- *     title="Carreras",
- *     version="1.0.0"
- * ),
+ * 
  * @OA\PathItem(
  *     path="/api/carreras"
  * )
@@ -35,6 +38,7 @@ class CarreraController extends Controller
  *     path="/api/carreras",
  *     summary="Obtener lista de carreras",
  *     tags={"Carreras"},
+ *     security={{"sanctum":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="Lista de carreras recuperada exitosamente",

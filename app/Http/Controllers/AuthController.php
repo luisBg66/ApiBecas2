@@ -10,9 +10,51 @@ use Symfony\Component\HttpFoundation\Response;
 class AuthController extends Controller
 
 {
+  
     /**
-     * Login del usuario.
-     */
+ * @OA\Post(
+ *     path="/api/login",
+ *     summary="Iniciar sesión de usuario",
+ *     description="Autenticar usuario y obtener token de acceso",
+ *     @OA\RequestBody(
+ *         required=true,
+ *         @OA\JsonContent(
+ *             required={"email","password"},
+ *             @OA\Property(property="email", type="string", format="email", example="milly12@asmin.com"),
+ *             @OA\Property(property="password", type="string", format="password", example="password")
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Inicio de sesión exitoso",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Inicio de sesión exitoso"),
+ *             @OA\Property(property="access_token", type="string", example="eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9..."),
+ *             @OA\Property(property="token_type", type="string", example="Bearer"),
+ *             @OA\Property(
+ *                 property="user",
+ *                 type="object",
+ *                 @OA\Property(property="id", type="integer", example=1),
+ *                 @OA\Property(property="nombre", type="string", example="Milly"),
+ *                 @OA\Property(property="apellido_paterno", type="string", example="castañeda"),
+ *                 @OA\Property(property="apellido_materno", type="string", example="Alcantar"),
+ *                 @OA\Property(property="rango", type="string", example="Presisndete"),
+ *                 @OA\Property(property="email", type="string", example="milly12@asmin.com")
+ *             )
+ *         )
+ *     ),
+ *     @OA\Response(
+ *         response=401,
+ *         description="Credenciales incorrectas",
+ *         @OA\JsonContent(
+ *             @OA\Property(property="message", type="string", example="Credenciales incorrectas")
+ *         )
+ *     )
+ * )
+ */
+
+
+
     public function login(Request $request)
     {
         // Validar los datos del formulario

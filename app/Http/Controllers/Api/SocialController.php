@@ -13,13 +13,7 @@ use App\Models\Social;
 class SocialController extends Controller
 {  
     use AuthorizesRequests;
-        /**
-    * @OA\Info(
-    *     title="API de Social",
-    *     version="1.0.0",
-    *     description="API para gestionar información de estudiantes"
-    * )
-    */
+
     /**
  * @OA\Get(
  *     path="/api/social",
