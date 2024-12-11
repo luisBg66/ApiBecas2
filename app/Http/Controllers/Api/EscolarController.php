@@ -12,13 +12,13 @@ use Illuminate\Http\Request;
 
 class EscolarController extends Controller
 {
-    
+
 /**
  * @OA\Get(
  *     path="/api/escolar",
  *     summary="Obtener lista de registros escolares",
  *     tags={"Escolar"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="Lista de registros escolares recuperada exitosamente",
@@ -51,7 +51,7 @@ class EscolarController extends Controller
  *     path="/api/escolar",
  *     summary="Crear un nuevo registro escolar",
  *     tags={"Escolar"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -102,7 +102,7 @@ class EscolarController extends Controller
  *     path="/api/escolar/{id}",
  *     summary="Obtener un registro escolar específico",
  *     tags={"Escolar"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -141,7 +141,7 @@ class EscolarController extends Controller
  *     path="/api/escolar/{id}",
  *     summary="Actualizar un registro escolar existente",
  *     tags={"Escolar"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -194,7 +194,7 @@ class EscolarController extends Controller
  *     path="/api/escolar/{id}",
  *     summary="Eliminar un registro escolar",
  *     tags={"Escolar"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",

@@ -180,6 +180,32 @@ class CarreraController extends Controller
         $carrera->update($request->validated());
         return new CarreraResource($carrera);
     }
+    /**
+ * @OA\Delete(
+ *     path="/api/carreras/{id}",
+ *     summary="Eliminar una carrera",
+ *     tags={"Carreras"},
+ *     @OA\Parameter(
+ *         name="id",
+ *         in="path",
+ *         required=true,
+ *         description="ID de la carrera a eliminar",
+ *         @OA\Schema(type="integer")
+ *     ),
+ *     @OA\Response(
+ *         response=200,
+ *         description="Carrera eliminada exitosamente"
+ *     ),
+ *     @OA\Response(
+ *         response=404,
+ *         description="Carrera no encontrada"
+ *     ),
+ *     @OA\Response(
+ *         response=403,
+ *         description="No autorizado"
+ *     )
+ * )
+ */
 
     //Eliminar registro
     public function destroy(Carrera $carrera)

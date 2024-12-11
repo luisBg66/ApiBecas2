@@ -19,7 +19,7 @@ class EconomicoController extends Controller
  *     path="/api/economico",
  *     summary="Obtener lista de registros económicos",
  *     tags={"Economía"},
- *     security={{"bearerAuth":{}}},
+ *     security={{"sanctum":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="Lista de registros económicos recuperada exitosamente",
@@ -50,7 +50,7 @@ class EconomicoController extends Controller
  *     path="/api/economico",
  *     summary="Crear un nuevo registro económico",
  *     tags={"Economía"},
- *     security={{"bearerAuth":{}}},
+ *     security={{"sanctum":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -92,7 +92,7 @@ class EconomicoController extends Controller
  *     path="/api/economico/{id}",
  *     summary="Obtener un registro económico específico",
  *     tags={"Economía"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -131,7 +131,7 @@ class EconomicoController extends Controller
  *     path="/api/economico/{id}",
  *     summary="Actualizar un registro económico existente",
  *     tags={"Economía"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -180,7 +180,7 @@ class EconomicoController extends Controller
  *     path="/api/economico/{id}",
  *     summary="Eliminar un registro económico",
  *     tags={"Economía"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",

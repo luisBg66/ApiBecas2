@@ -23,7 +23,7 @@ class EstudianteController extends Controller
  *     path="/api/estudiantes",
  *     summary="Obtener lista de estudiantes",
  *     tags={"Estudiantes"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="Lista de estudiantes recuperada exitosamente",
@@ -60,7 +60,7 @@ class EstudianteController extends Controller
  *     path="/api/estudiantes",
  *     summary="Crear un nuevo estudiante",
  *     tags={"Estudiantes"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -120,7 +120,7 @@ class EstudianteController extends Controller
  *     path="/api/estudiantes/{id}",
  *     summary="Obtener un estudiante específico",
  *     tags={"Estudiantes"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -163,7 +163,7 @@ class EstudianteController extends Controller
  *     path="/api/estudiantes/{id}",
  *     summary="Actualizar un estudiante existente",
  *     tags={"Estudiantes"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -234,7 +234,7 @@ class EstudianteController extends Controller
  *     path="/api/estudiantes/{id}",
  *     summary="Eliminar un estudiante",
  *     tags={"Estudiantes"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",

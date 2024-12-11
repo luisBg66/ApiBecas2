@@ -17,21 +17,14 @@ class DireccionController extends Controller
 {
     use AuthorizesRequests;
 
-/**
- * @OA\SecurityScheme(
- *     securityScheme="bearerAuth",
- *     type="http",
- *     scheme="bearer",
- *     bearerFormat="JWT"
- * )
- */
+
 
 /**
  * @OA\Get(
  *     path="/api/direcciones",
  *     summary="Obtener lista de direcciones",
  *     tags={"Direcciones"},
- * security={{"bearerAuth":{}}},
+ * security={{"sanctum":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="Lista de direcciones recuperada exitosamente",
@@ -60,7 +53,7 @@ class DireccionController extends Controller
  *     path="/api/direcciones",
  *     summary="Crear una nueva dirección",
  *     tags={"Direcciones"},
- * security={{"bearer_token":{}}},
+ *  security={{"sanctum":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -99,7 +92,7 @@ class DireccionController extends Controller
  *     path="/api/direcciones/{id}",
  *     summary="Obtener una dirección específica",
  *     tags={"Direcciones"},
- * security={{"bearerAuth":{}}},
+ *  security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -135,7 +128,7 @@ class DireccionController extends Controller
  *     path="/api/direcciones/{id}",
  *     summary="Actualizar una dirección existente",
  *     tags={"Direcciones"},
- * security={{"bearerAuth":{}}},
+ *  security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -186,7 +179,7 @@ class DireccionController extends Controller
  *     path="/api/direcciones/{id}",
  *     summary="Eliminar una dirección",
  *     tags={"Direcciones"},
- * security={{"bearerAuth":{}}},
+ *  security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -210,8 +203,7 @@ class DireccionController extends Controller
  *         description="No autorizado"
  *     )
  * )
- */
-/**
+ *
  * @OA\Schema(
  *     schema="DireccionResource",
  *     @OA\Property(property="id", type="integer", example=1),

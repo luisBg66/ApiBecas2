@@ -19,7 +19,7 @@ class SocialController extends Controller
  *     path="/api/social",
  *     summary="Obtener lista de registros sociales",
  *     tags={"Social"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Response(
  *         response=200,
  *         description="Lista de registros sociales recuperada exitosamente",
@@ -50,7 +50,7 @@ class SocialController extends Controller
  *     path="/api/social",
  *     summary="Crear un nuevo registro social",
  *     tags={"Social"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\RequestBody(
  *         required=true,
  *         @OA\JsonContent(
@@ -89,7 +89,7 @@ class SocialController extends Controller
  *     path="/api/social/{id}",
  *     summary="Obtener un registro social específico",
  *     tags={"Social"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -126,7 +126,7 @@ class SocialController extends Controller
  *     path="/api/social/{id}",
  *     summary="Actualizar un registro social existente",
  *     tags={"Social"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",
@@ -176,7 +176,7 @@ class SocialController extends Controller
  *     path="/api/social/{id}",
  *     summary="Eliminar un registro social",
  *     tags={"Social"},
- *     security={{"bearerAuth":{}}},
+ *    security={{"sanctum":{}}},
  *     @OA\Parameter(
  *         name="id",
  *         in="path",

@@ -13,7 +13,8 @@ namespace App\Http\Controllers;
  * )
  * 
  * @OA\Server(
- *    url="http://localhost:8000"
+ *    url="https://apibecas2-production.up.railway.app"
+ *  
  * )
  *
  * @OA\SecurityScheme(
