@@ -1,0 +1,1326 @@
+openapi: 3.0.0
+info:
+  title: 'Documentación para API REST de Recetas'
+  contact:
+    email: eescobar@cdhidalgo.tecnm.mx
+  version: 1.0.0
+servers:
+  -
+    url: 'https://apibecas2-production.up.railway.app'
+paths:
+  /api/carreras:
+    get:
+      tags:
+        - Carreras
+      summary: 'Obtener lista de carreras'
+      operationId: c306ace13bc538822c8319dbef62f554
+      responses:
+        200:
+          description: 'Lista de carreras recuperada exitosamente'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    nombre_carrera:
+                      type: string
+                      example: 'Ingeniería en Sistemas'
+                  type: object
+        403:
+          description: 'No autorizado'
+      security:
+        -
+          sanctum: []
+    post:
+      tags:
+        - Carreras
+      summary: 'Crear una nueva carrera'
+      operationId: 4674224d48b44c250ccdfd5e9a8c4e0a
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - nombre_carrera
+              properties:
+                nombre_carrera:
+                  type: string
+                  example: 'Ingeniería en Sistemas'
+              type: object
+      responses:
+        201:
+          description: 'Carrera creada exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nombre_carrera:
+                    type: string
+                    example: 'Ingeniería en Sistemas'
+                type: object
+        403:
+          description: 'No autorizado'
+        422:
+          description: 'Error de validación'
+  '/api/carreras/{id}':
+    get:
+      tags:
+        - Carreras
+      summary: 'Obtener una carrera específica'
+      operationId: 93d91e0ee45ed57b43846dd0bf54e1dc
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID de la carrera'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Carrera encontrada exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  nombre_carrera:
+                    type: string
+                    example: 'Ingeniería en Sistemas'
+                type: object
+        404:
+          description: 'Carrera no encontrada'
+    put:
+      tags:
+        - Carreras
+      summary: 'Actualizar una carrera existente'
+      operationId: 7c4437011107dc3d80b25cc90f789622
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID de la carrera a actualizar'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - nombre_carrera
+              properties:
+                nombre_carrera:
+                  type: string
+                  example: 'Ingeniería en Software'
+              type: object
+      responses:
+        200:
+          description: 'Carrera actualizada exitosamente'
+        404:
+          description: 'Carrera no encontrada'
+        422:
+          description: 'Error de validación'
+    delete:
+      tags:
+        - Carreras
+      summary: 'Eliminar una carrera'
+      operationId: 508b0760ae7e0af00b4916b0ed62d975
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID de la carrera a eliminar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Carrera eliminada exitosamente'
+        404:
+          description: 'Carrera no encontrada'
+        403:
+          description: 'No autorizado'
+  /api/direcciones:
+    get:
+      tags:
+        - Direcciones
+      summary: 'Obtener lista de direcciones'
+      operationId: f8c29a712a77b019c23b33c2b12b7972
+      responses:
+        200:
+          description: 'Lista de direcciones recuperada exitosamente'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DireccionResource'
+        403:
+          description: 'No autorizado'
+      security:
+        -
+          sanctum: []
+    post:
+      tags:
+        - Direcciones
+      summary: 'Crear una nueva dirección'
+      operationId: ae54cb09d534263f9ecc99c7efe66ae5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - id_estudiante
+                - municipio
+                - colonia
+                - calle
+                - numero
+              properties:
+                id_estudiante:
+                  type: integer
+                  example: 1
+                municipio:
+                  type: string
+                  example: Guadalajara
+                colonia:
+                  type: string
+                  example: Centro
+                calle:
+                  type: string
+                  example: 'Av. Principal'
+                numero:
+                  type: integer
+                  example: 123
+              type: object
+      responses:
+        201:
+          description: 'Dirección creada exitosamente'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DireccionResource'
+        422:
+          description: 'Error de validación'
+        403:
+          description: 'No autorizado'
+      security:
+        -
+          sanctum: []
+  '/api/direcciones/{id}':
+    get:
+      tags:
+        - Direcciones
+      summary: 'Obtener una dirección específica'
+      operationId: 23c0eb511913cd49190b950a1563935a
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID de la dirección'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Dirección encontrada exitosamente'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DireccionResource'
+        404:
+          description: 'Dirección no encontrada'
+        403:
+          description: 'No autorizado'
+      security:
+        -
+          sanctum: []
+    put:
+      tags:
+        - Direcciones
+      summary: 'Actualizar una dirección existente'
+      operationId: f97ba5736ebc2758aef2d4f19ea241c6
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID de la dirección a actualizar'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                id_estudiante:
+                  type: integer
+                  example: 1
+                municipio:
+                  type: string
+                  example: Guadalajara
+                colonia:
+                  type: string
+                  example: Centro
+                calle:
+                  type: string
+                  example: 'Av. Principal'
+                numero:
+                  type: integer
+                  example: 123
+              type: object
+      responses:
+        200:
+          description: 'Dirección actualizada exitosamente'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DireccionResource'
+        404:
+          description: 'Dirección no encontrada'
+        422:
+          description: 'Error de validación'
+        403:
+          description: 'No autorizado'
+      security:
+        -
+          sanctum: []
+    delete:
+      tags:
+        - Direcciones
+      summary: 'Eliminar una dirección'
+      operationId: aa8cbac694ebf09f0c6bd7f37339c6b1
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID de la dirección a eliminar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Dirección eliminada exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Dirección eliminada correctamente.'
+                type: object
+        404:
+          description: 'Dirección no encontrada'
+        403:
+          description: 'No autorizado'
+      security:
+        -
+          sanctum: []
+  /api/economico:
+    get:
+      tags:
+        - Economía
+      summary: 'Obtener lista de registros económicos'
+      operationId: 1f1d13ac2e2d4beaf08b997b2d577e0b
+      responses:
+        200:
+          description: 'Lista de registros económicos recuperada exitosamente'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    id_estudiante:
+                      type: integer
+                      example: 1
+                    ingresos:
+                      type: number
+                      format: float
+                      example: 5000
+                  type: object
+        403:
+          description: "No autorizado - Requiere permiso 'Ver registros'"
+      security:
+        -
+          sanctum: []
+    post:
+      tags:
+        - Economía
+      summary: 'Crear un nuevo registro económico'
+      operationId: 0a0e82b977fec414f7a14afdab57ef1a
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - id_estudiante
+              properties:
+                id_estudiante:
+                  type: integer
+                  example: 1
+                ingresos:
+                  type: number
+                  format: float
+                  example: 5000
+              type: object
+      responses:
+        201:
+          description: 'Registro económico creado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  ingresos:
+                    type: number
+                    format: float
+                    example: 5000
+                type: object
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+  '/api/economico/{id}':
+    get:
+      tags:
+        - Economía
+      summary: 'Obtener un registro económico específico'
+      operationId: 7488b40ea96497f848fb56f7b406a987
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro económico'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Registro económico encontrado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  ingresos:
+                    type: number
+                    format: float
+                    example: 5000
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Ver registros'"
+      security:
+        -
+          sanctum: []
+    put:
+      tags:
+        - Economía
+      summary: 'Actualizar un registro económico existente'
+      operationId: 0e712995f1df0e3a7ae854e052b62b7a
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro económico a actualizar'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                ingresos:
+                  type: number
+                  format: float
+                  example: 6000
+              type: object
+      responses:
+        200:
+          description: 'Registro económico actualizado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  ingresos:
+                    type: number
+                    format: float
+                    example: 6000
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+    delete:
+      tags:
+        - Economía
+      summary: 'Eliminar un registro económico'
+      operationId: 3a8ef4aa38c745fd5b6d2f1011b6754f
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro económico a eliminar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Registro eliminado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Registro eliminado correctamente'
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+      security:
+        -
+          sanctum: []
+  /api/escolar:
+    get:
+      tags:
+        - Escolar
+      summary: 'Obtener lista de registros escolares'
+      operationId: c8a4036611c254f1152461aa37f57df5
+      responses:
+        200:
+          description: 'Lista de registros escolares recuperada exitosamente'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    id_estudiante:
+                      type: integer
+                      example: 1
+                    promedio:
+                      type: number
+                      format: float
+                      example: 85.5
+                    materias_reprobadas:
+                      type: boolean
+                      example: false
+                  type: object
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+      security:
+        -
+          sanctum: []
+    post:
+      tags:
+        - Escolar
+      summary: 'Crear un nuevo registro escolar'
+      operationId: 9a685b203b393821c1068d37671edb69
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - id_estudiante
+                - promedio
+              properties:
+                id_estudiante:
+                  type: integer
+                  example: 1
+                promedio:
+                  type: number
+                  format: float
+                  example: 85.5
+                materia_en_repeticion:
+                  type: boolean
+                  example: false
+              type: object
+      responses:
+        201:
+          description: 'Registro escolar creado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  promedio:
+                    type: number
+                    format: float
+                    example: 85.5
+                  materias_reprobadas:
+                    type: boolean
+                    example: false
+                type: object
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+  '/api/escolar/{id}':
+    get:
+      tags:
+        - Escolar
+      summary: 'Obtener un registro escolar específico'
+      operationId: 9dcbe13a1cde122d907d61a959b74d13
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro escolar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Registro escolar encontrado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  promedio:
+                    type: number
+                    format: float
+                    example: 85.5
+                  materias_reprobadas:
+                    type: boolean
+                    example: false
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+      security:
+        -
+          sanctum: []
+    put:
+      tags:
+        - Escolar
+      summary: 'Actualizar un registro escolar existente'
+      operationId: 8f684a268bf111e02406b36236ab6d94
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro escolar a actualizar'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                promedio:
+                  type: number
+                  format: float
+                  example: 90
+                materia_en_repeticion:
+                  type: boolean
+                  example: true
+              type: object
+      responses:
+        200:
+          description: 'Registro escolar actualizado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  promedio:
+                    type: number
+                    format: float
+                    example: 90
+                  materias_reprobadas:
+                    type: boolean
+                    example: true
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Ver registros'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+    delete:
+      tags:
+        - Escolar
+      summary: 'Eliminar un registro escolar'
+      operationId: 4e4fcbdfc9e080942320d1301ef9d4d5
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro escolar a eliminar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Registro eliminado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Registro eliminado correctamente'
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+      security:
+        -
+          sanctum: []
+  /api/estudiantes:
+    get:
+      tags:
+        - Estudiantes
+      summary: 'Obtener lista de estudiantes'
+      operationId: e39ad3a168705ec612b7f3937faaaa1c
+      responses:
+        200:
+          description: 'Lista de estudiantes recuperada exitosamente'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    numero_control:
+                      type: string
+                      example: '19141142'
+                    nombre:
+                      type: string
+                      example: Juan
+                    apellido_paterno:
+                      type: string
+                      example: Pérez
+                    apellido_materno:
+                      type: string
+                      example: García
+                    id_carrera:
+                      type: integer
+                      example: 1
+                    carrera:
+                      type: string
+                      example: 'Ingeniería en Sistemas'
+                    correo:
+                      type: string
+                      example: juan.perez@ejemplo.com
+                  type: object
+        403:
+          description: "No autorizado - Requiere permiso 'Ver registros'"
+      security:
+        -
+          sanctum: []
+    post:
+      tags:
+        - Estudiantes
+      summary: 'Crear un nuevo estudiante'
+      operationId: ef4e853a87acd60ea86b0e5579eb5208
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                numero_control:
+                  type: string
+                  example: '19141142'
+                nombre:
+                  type: string
+                  example: Juan
+                apellido_paterno:
+                  type: string
+                  example: Pérez
+                apellido_materno:
+                  type: string
+                  example: García
+                id_carrera:
+                  type: integer
+                  example: 1
+                correo:
+                  type: string
+                  example: juan.perez@ejemplo.com
+              type: object
+      responses:
+        201:
+          description: 'Estudiante creado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  numero_control:
+                    type: string
+                    example: '19141142'
+                  nombre:
+                    type: string
+                    example: Juan
+                  apellido_paterno:
+                    type: string
+                    example: Pérez
+                  apellido_materno:
+                    type: string
+                    example: García
+                  id_carrera:
+                    type: integer
+                    example: 1
+                  correo:
+                    type: string
+                    example: juan.perez@ejemplo.com
+                type: object
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+  '/api/estudiantes/{id}':
+    get:
+      tags:
+        - Estudiantes
+      summary: 'Obtener un estudiante específico'
+      operationId: fc77eb37ffbc9deb381d9e78cf44a6ef
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del estudiante'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Estudiante encontrado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  numero_control:
+                    type: string
+                    example: '19141142'
+                  nombre:
+                    type: string
+                    example: Juan
+                  apellido_paterno:
+                    type: string
+                    example: Pérez
+                  apellido_materno:
+                    type: string
+                    example: García
+                  id_carrera:
+                    type: integer
+                    example: 1
+                  carrera:
+                    type: string
+                    example: 'Ingeniería en Sistemas'
+                  correo:
+                    type: string
+                    example: juan.perez@ejemplo.com
+                type: object
+        404:
+          description: 'Estudiante no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Ver registros'"
+      security:
+        -
+          sanctum: []
+    put:
+      tags:
+        - Estudiantes
+      summary: 'Actualizar un estudiante existente'
+      operationId: c3348f934138e9b2983eebcb6ed6b537
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del estudiante a actualizar'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                nombre:
+                  type: string
+                  example: 'Juan Carlos'
+                apellido_paterno:
+                  type: string
+                  example: Pérez
+                apellido_materno:
+                  type: string
+                  example: García
+                id_carrera:
+                  type: integer
+                  example: 2
+                correo:
+                  type: string
+                  example: juan.perez.nuevo@ejemplo.com
+              type: object
+      responses:
+        200:
+          description: 'Estudiante actualizado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  numero_control:
+                    type: string
+                    example: '19141142'
+                  nombre:
+                    type: string
+                    example: 'Juan Carlos'
+                  apellido_paterno:
+                    type: string
+                    example: Pérez
+                  apellido_materno:
+                    type: string
+                    example: García
+                  id_carrera:
+                    type: integer
+                    example: 2
+                  correo:
+                    type: string
+                    example: juan.perez.nuevo@ejemplo.com
+                type: object
+        404:
+          description: 'Estudiante no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+    delete:
+      tags:
+        - Estudiantes
+      summary: 'Eliminar un estudiante'
+      operationId: a1633169ea7c0b3a90e60fa98cb7dff0
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del estudiante a eliminar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Estudiante eliminado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Estudiante eliminado correctamente.'
+                type: object
+        404:
+          description: 'Estudiante no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+      security:
+        -
+          sanctum: []
+  /api/social:
+    get:
+      tags:
+        - Social
+      summary: 'Obtener lista de registros sociales'
+      operationId: 3ec3b0c1753f88c38733926761ef6a63
+      responses:
+        200:
+          description: 'Lista de registros sociales recuperada exitosamente'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                    id_estudiante:
+                      type: integer
+                      example: 1
+                    integrantes_familia:
+                      type: integer
+                      example: 4
+                  type: object
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+      security:
+        -
+          sanctum: []
+    post:
+      tags:
+        - Social
+      summary: 'Crear un nuevo registro social'
+      operationId: c61deee436b3e370728de17c4febcfa5
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                id_estudiante:
+                  type: integer
+                  example: 1
+                integrantes_familia:
+                  type: integer
+                  example: 4
+              type: object
+      responses:
+        201:
+          description: 'Registro social creado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  integrantes_familia:
+                    type: integer
+                    example: 4
+                type: object
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+  '/api/social/{id}':
+    get:
+      tags:
+        - Social
+      summary: 'Obtener un registro social específico'
+      operationId: 14ca4341051d96270ef5a6fcb3dcd2e3
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro social'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Registro social encontrado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  integrantes_familia:
+                    type: integer
+                    example: 4
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+      security:
+        -
+          sanctum: []
+    put:
+      tags:
+        - Social
+      summary: 'Actualizar un registro social existente'
+      operationId: eb462b2b8766f1657ef03ac9586e75c9
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro social a actualizar'
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              properties:
+                integrantes_familia:
+                  type: integer
+                  example: 5
+              type: object
+      responses:
+        200:
+          description: 'Registro social actualizado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  id:
+                    type: integer
+                    example: 1
+                  id_estudiante:
+                    type: integer
+                    example: 1
+                  integrantes_familia:
+                    type: integer
+                    example: 5
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'Modificar registros'"
+        422:
+          description: 'Error de validación'
+      security:
+        -
+          sanctum: []
+    delete:
+      tags:
+        - Social
+      summary: 'Eliminar un registro social'
+      operationId: 1625bf47a33cacd7e252029910c9b86a
+      parameters:
+        -
+          name: id
+          in: path
+          description: 'ID del registro social a eliminar'
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: 'Registro social eliminado exitosamente'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Registro eliminado correctamente'
+                type: object
+        404:
+          description: 'Registro no encontrado'
+        403:
+          description: "No autorizado - Requiere permiso 'CrearEliminar'"
+      security:
+        -
+          sanctum: []
+  /api/login:
+    post:
+      summary: 'Iniciar sesión de usuario'
+      description: 'Autenticar usuario y obtener token de acceso'
+      operationId: a3b306d14572d1f4bd6c064b3233e7b8
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: milly12@asmin.com
+                password:
+                  type: string
+                  format: password
+                  example: password
+              type: object
+      responses:
+        200:
+          description: 'Inicio de sesión exitoso'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Inicio de sesión exitoso'
+                  access_token:
+                    type: string
+                    example: eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9...
+                  token_type:
+                    type: string
+                    example: Bearer
+                  user:
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      nombre:
+                        type: string
+                        example: Milly
+                      apellido_paterno:
+                        type: string
+                        example: castañeda
+                      apellido_materno:
+                        type: string
+                        example: Alcantar
+                      rango:
+                        type: string
+                        example: Presisndete
+                      email:
+                        type: string
+                        example: milly12@asmin.com
+                    type: object
+                type: object
+        401:
+          description: 'Credenciales incorrectas'
+          content:
+            application/json:
+              schema:
+                properties:
+                  message:
+                    type: string
+                    example: 'Credenciales incorrectas'
+                type: object
+components:
+  schemas:
+    DireccionResource:
+      properties:
+        id:
+          type: integer
+          example: 1
+        id_estudiante:
+          type: integer
+          example: 1
+        municipio:
+          type: string
+          example: Guadalajara
+        colonia:
+          type: string
+          example: Centro
+        calle:
+          type: string
+          example: 'Av. Principal'
+        numero:
+          type: integer
+          example: 123
+      type: object
+  securitySchemes:
+    sanctum:
+      type: apiKey
+      description: 'Sanctum API token'
+      name: Authorization
+      in: header
+tags:
+  -
+    name: Carreras
+    description: Carreras
+  -
+    name: Direcciones
+    description: Direcciones
+  -
+    name: Economía
+    description: Economía
+  -
+    name: Escolar
+    description: Escolar
+  -
+    name: Estudiantes
+    description: Estudiantes
+  -
+    name: Social
+    description: Social
+security:
+  -
+    sanctum: []
